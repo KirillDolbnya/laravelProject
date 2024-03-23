@@ -2,16 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Worker\IndexRequest;
 use App\Http\Requests\Worker\StoreRequest;
+use App\Http\Requests\Worker\UpdateRequest;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 
 class WorkerController extends Controller
 {
-    public function index()
+    public function index(IndexRequest $request)
     {
-        $workers = Worker::all();
+        $data = $request->validated();
 
+        $workersQuery = Worker::query();
+
+        if (isset($data['name'])){
+            $workersQuery->where('name','like',"%{$data['name']}%");
+        }
+        if (isset($data['surname'])){
+            $workersQuery->where('surname','like',"%{$data['surname']}%");
+        }
+        if (isset($data['description'])){
+            $workersQuery->where('description','like',"%{$data['description']}%");
+        }
+        if (isset($data['from'])){
+            $workersQuery->where('age','>', $data['from']);
+        }
+        if (isset($data['to'])){
+            $workersQuery->where('age','<', $data['to']);
+        }
+
+        if (isset($data['is_married'])){
+            $workersQuery->where('is_married',true);
+        }
+
+        $workers = $workersQuery->paginate(2);
 
         return view('workers.index', compact('workers'));
     }
@@ -19,6 +44,11 @@ class WorkerController extends Controller
     public function show(Worker $worker)
     {
         return view('workers.show',compact('worker'));
+    }
+
+    public function edit(Worker $worker)
+    {
+        return view('workers.edit',compact('worker'));
     }
 
     public function store(StoreRequest $request)
@@ -37,23 +67,21 @@ class WorkerController extends Controller
         return view('workers.create');
     }
 
-    public function update()
+    public function update(UpdateRequest $request, Worker $worker)
     {
-        $worker = Worker::find(1);
 
-        $worker->update([
-            'name' => 'Denis'
-        ]);
+        $data = $request->validated();
 
-        return 'was updated';
+        $data['is_married'] = isset($data['is_married']);
+
+        $worker->update($data);
+
+        return redirect()->route('worker.index');
     }
 
-    public function delete()
+    public function delete(Worker $worker)
     {
-
-        $worker = Worker::find(1);
-
         $worker->delete();
-        return 'was deleted';
+        return redirect()->route('worker.index');
     }
 }

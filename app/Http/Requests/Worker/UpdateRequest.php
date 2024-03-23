@@ -4,7 +4,7 @@ namespace App\Http\Requests\Worker;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,15 +28,6 @@ class StoreRequest extends FormRequest
             'age' => 'nullable|integer',
             'description' => 'nullable|string',
             'is_married' => 'nullable|string'
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'Это поле обязательно для заполнения',
-            'surname.required' => 'Это поле обязательно для заполнения',
-            'email.required' => 'Это поле обязательно для заполнения',
         ];
     }
 }

@@ -1,14 +1,32 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-index
+@extends('layout.main')
+
+@section('content')
+<form action="{{route('worker.index')}}">
+    <label>
+        <input type="text" placeholder="name" name="name" value="{{ request()->get('name') }}">
+    </label>
+    <label>
+        <input type="text" placeholder="surname" name="surname" value="{{ request()->get('surname') }}">
+    </label>
+    <label>
+        <input type="text" placeholder="email" name="email" value="{{ request()->get('email') }}">
+    </label>
+    <label>
+        <input type="text" placeholder="to" name="to" value="{{ request()->get('to') }}">
+    </label>
+    <label>
+        <input type="text" placeholder="from" name="from" value="{{ request()->get('from') }}">
+    </label>
+    <label>
+        <textarea name="description" id="" cols="30" rows="10">{{ request()->get('description') }}</textarea>
+    </label>
+    <label>
+        <input type="checkbox" name="is_married" {{ request()->get('is_married') == 'on' ? 'checked' : '' }}>
+        is_married
+    </label>
+    <button type="submit">Filter</button>
+    <a href="{{ route('worker.index') }}">Сбросить</a>
+</form>
 
 <div class="workers">
     @foreach($workers as $worker)
@@ -26,45 +44,18 @@ index
             </div>
             <div class="buttons">
                 <a class="btn" href="{{route('worker.show',['worker' => $worker->id])}}">show</a>
+                <a class="btn" href="{{route('worker.edit',['worker' => $worker->id])}}">edit</a>
+                <form action="{{route('worker.delete',['worker'=>$worker->id])}}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button class="btn">delete</button>
+                </form>
             </div>
         </div>
     @endforeach
+    <div>
+        {{ $workers->withQueryString()->links()}}
+    </div>
 </div>
+@endsection
 
-<style>
-
-    .workers{
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        gap: 20px;
-    }
-
-    .worker{
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        padding: 5px;
-        border: 1px solid black;
-        box-sizing: border-box;
-    }
-
-    .buttons{
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        width: 100%;
-    }
-
-    .btn{
-        display: block;
-        text-align: center;
-        color: white;
-        border-radius: 20px;
-        background: rgb(5, 130, 204);
-        padding: 10px;
-        text-decoration: none;
-    }
-
-</style>
-</body>
-</html>

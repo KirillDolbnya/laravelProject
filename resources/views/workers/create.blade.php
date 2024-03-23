@@ -1,33 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-create
+@extends('layout.main')
 
+@section('content')
 <div>
     <form action="{{route('worker.store')}}" method="POST">
         @csrf
         @method('POST')
         <div>
-            <input placeholder="name" name="name" type="text">
+            <input placeholder="name" name="name" type="text" value="{{old('name')}}">
+            @error('name')
+                {{ $message }}
+            @enderror
         </div>
         <div>
-            <input placeholder="surname" name="surname" type="text">
+            <input placeholder="surname" name="surname" type="text" value="{{old('surname')}}">
+            @error('surname')
+            {{ $message }}
+            @enderror
         </div>
         <div>
-            <input placeholder="email" name="email" type="email">
+            <input placeholder="email" name="email" type="email" value="{{old('email')}}">
+            @error('email')
+            {{ $message }}
+            @enderror
         </div>
         <div>
-            <input placeholder="age" name="age" type="number">
+            <input placeholder="age" name="age" type="number" value="{{old('age')}}">
+            @error('age')
+            {{ $message }}
+            @enderror
         </div>
         <div>
-            <textarea placeholder="description" name="description" type="text"></textarea>
+            <textarea placeholder="description" name="description" type="text">{{old('description')}}</textarea>
+            @error('description')
+            {{ $message }}
+            @enderror
         </div>
         <div>
             <input placeholder="is_married" type="checkbox" id="checkbox" name="is_married">
@@ -36,5 +42,4 @@ create
         <button type="submit">create</button>
     </form>
 </div>
-</body>
-</html>
+@endsection
