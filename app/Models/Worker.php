@@ -9,6 +9,8 @@ class Worker extends Model
 {
     use HasFactory;
 
+    protected $table = 'workers';
+
     protected $guarded = false;
 
     public function profile()
@@ -19,5 +21,10 @@ class Worker extends Model
     public function position()
     {
         return $this->belongsTo(Position::class,'position_id','id');
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class,'project_workers','worker_id','project_id');
     }
 }
