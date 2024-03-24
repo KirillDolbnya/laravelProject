@@ -13,11 +13,11 @@ class Department extends Model
 
     public function designer()
     {
-        return $this->hasOneThrough(Worker::class, Position::class, 'department_id','position_id','id','id')->where('position_id', 2);
+        return $this->hasOneThrough(Worker::class, Position::class)->where('position_id', 2);
     }
 
     public function workers()
     {
-        return $this->hasManyThrough(Worker::class,Position::class,'department_id','position_id','id','id');
+        return $this->hasManyThrough(Worker::class,Position::class);
     }
 }

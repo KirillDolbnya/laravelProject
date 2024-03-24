@@ -58,14 +58,17 @@ class DevCommand extends Command
 //        $project->workers()->sync($worker->id); добавляет и удаляет все что до него было
 //        $project->workers()->detach($worker->id); удаляет
 
-        $department = Department::find(1);
+//        $department = Department::find(1);
 //
 //        dd($department->designer->toArray());
-        dd($department->workers->toArray());
+//        dd($department->workers->toArray());
 
-//        $worker = Worker::find(3);
+        $worker = Worker::find(3);
 //
 //        dd($worker->position->department->toArray());
+
+
+        dd($worker->position->toArray());
 
         return 0;
     }
@@ -204,12 +207,20 @@ class DevCommand extends Command
             'finished_study_at'=>'2022-06-01',
         ];
 
-        Profile::create($profileData);
-        Profile::create($profileData2);
-        Profile::create($profileData3);
-        Profile::create($profileData4);
-        Profile::create($profileData5);
-        Profile::create($profileData6);
+
+        $worker->profile()->create($profileData);
+        $worker2->profile()->create($profileData2);
+        $worker3->profile()->create($profileData3);
+        $worker4->profile()->create($profileData4);
+        $worker5->profile()->create($profileData5);
+        $worker6->profile()->create($profileData6);
+
+//        Profile::create($profileData);
+//        Profile::create($profileData2);
+//        Profile::create($profileData3);
+//        Profile::create($profileData4);
+//        Profile::create($profileData5);
+//        Profile::create($profileData6);
     }
 
     public function prepareManyToMany()
@@ -223,36 +234,11 @@ class DevCommand extends Command
             'title' => 'shop'
         ]);
 
-        $project2 = Project::create([
-            'title' => 'teatr'
+        $project1->workers()->attach([
+            $workerManager->id,
+            $workerDesigner->id,
+            $workerFrontend->id,
+            $workerBackend->id,
         ]);
-
-        ProjectWorker::create([
-            'project_id' => $project1->id,
-            'worker_id' => $workerManager->id
-        ]);
-        ProjectWorker::create([
-            'project_id' => $project1->id,
-            'worker_id' => $workerDesigner->id
-        ]);
-        ProjectWorker::create([
-            'project_id' => $project1->id,
-            'worker_id' => $workerBackend->id
-        ]);
-        ProjectWorker::create([
-            'project_id' => $project1->id,
-            'worker_id' => $workerFrontend->id
-        ]);
-
-        ProjectWorker::create([
-            'project_id' => $project2->id,
-            'worker_id' => $workerManager->id
-        ]);
-
-        ProjectWorker::create([
-            'project_id' => $project2->id,
-            'worker_id' => $workerBackend->id
-        ]);
-
     }
 }
