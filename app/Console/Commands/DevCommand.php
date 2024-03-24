@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Avatar;
+use App\Models\Client;
 use App\Models\Department;
 use App\Models\Position;
-use App\Models\Profile;
 use App\Models\Project;
-use App\Models\ProjectWorker;
 use App\Models\Worker;
 use Illuminate\Console\Command;
 
@@ -33,7 +33,7 @@ class DevCommand extends Command
     {
 
 //        $this->prepareData();
-
+//        $this->prepareManyToMany();
 
 
 
@@ -47,7 +47,6 @@ class DevCommand extends Command
 //        dd($position->workers->toArray());
 //        dd($worker->position->toArray());
 
-//        $this->prepareManyToMany();
 
 //        $worker = Worker::find(1);
 //
@@ -63,12 +62,27 @@ class DevCommand extends Command
 //        dd($department->designer->toArray());
 //        dd($department->workers->toArray());
 
-        $worker = Worker::find(3);
+//        $worker = Worker::find(3);
 //
 //        dd($worker->position->department->toArray());
 
 
-        dd($worker->position->toArray());
+//        dd($worker->position->toArray());
+
+        $worker = Worker::find(1);
+        $client = Client::find(1);
+        $avatar = Avatar::find(1);
+
+        dd($worker->avatar->toArray());
+//        dd($avatar->avatarable->toArray());
+
+
+//        $client->avatar()->create([
+//            'path'=>'client',
+//        ]);
+//        $worker->avatar()->create([
+//           'path'=>'some avatar',
+//        ]);
 
         return 0;
     }
