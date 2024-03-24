@@ -52,7 +52,10 @@ class DevCommand extends Command
 
         $project = Project::find(1);
 
-        dd($worker->projects->toArray());
+//        $worker->projects()->attach($worker->id); добавить
+//        $worker->projects()->toggle($project->id); добавить и удалить если существует
+//        $project->workers()->sync($worker->id); добавляет и удаляет все что до него было
+//        $project->workers()->detach($worker->id); удаляет
 
         return 0;
     }
