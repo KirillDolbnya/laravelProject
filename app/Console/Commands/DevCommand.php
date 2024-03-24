@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Department;
 use App\Models\Position;
 use App\Models\Profile;
 use App\Models\Project;
@@ -48,25 +49,44 @@ class DevCommand extends Command
 
 //        $this->prepareManyToMany();
 
-        $worker = Worker::find(1);
-
-        $project = Project::find(1);
+//        $worker = Worker::find(1);
+//
+//        $project = Project::find(1);
 
 //        $worker->projects()->attach($worker->id); добавить
 //        $worker->projects()->toggle($project->id); добавить и удалить если существует
 //        $project->workers()->sync($worker->id); добавляет и удаляет все что до него было
 //        $project->workers()->detach($worker->id); удаляет
 
+        $department = Department::find(1);
+//
+//        dd($department->designer->toArray());
+        dd($department->workers->toArray());
+
+//        $worker = Worker::find(3);
+//
+//        dd($worker->position->department->toArray());
+
         return 0;
     }
 
     private function prepareData()
     {
+        $department = Department::create([
+            'title' => 'IT'
+        ]);
+
+        $department2 = Department::create([
+            'title' => 'Analytics'
+        ]);
+
         $position1 = Position::create([
-            'title' => 'Back-end'
+            'title' => 'Back-end',
+            'department_id' => $department->id,
         ]);
         $position2 = Position::create([
-            'title' => 'Designer'
+            'title' => 'Designer',
+            'department_id' => $department2->id,
         ]);
 
         $workerData = [
