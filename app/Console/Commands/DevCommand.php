@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\Project;
+use App\Models\Review;
+use App\Models\Tag;
 use App\Models\Worker;
 use Illuminate\Console\Command;
 
@@ -69,11 +71,11 @@ class DevCommand extends Command
 
 //        dd($worker->position->toArray());
 
-        $worker = Worker::find(1);
-        $client = Client::find(1);
-        $avatar = Avatar::find(1);
-
-        dd($worker->avatar->toArray());
+//        $worker = Worker::find(1);
+//        $client = Client::find(1);
+//        $avatar = Avatar::find(1);
+//
+//        dd($worker->avatar->toArray());
 //        dd($avatar->avatarable->toArray());
 
 
@@ -84,11 +86,56 @@ class DevCommand extends Command
 //           'path'=>'some avatar',
 //        ]);
 
+        $worker = Worker::find(1);
+        $client = Client::find(1);
+
+//        $worker->tags()->attach([1,3]);
+//        $client->tags()->attach([2,3]);
+
+        $tag = Tag::find(3);
+
+        dd($worker->tags->toArray());
+
+//        $worker->reviews()->create([
+//           'body' => 'body 1'
+//        ]);
+//        $worker->reviews()->create([
+//           'body' => 'body 1'
+//        ]);
+//        $worker->reviews()->create([
+//           'body' => 'body 1'
+//        ]);
+//        $client->reviews()->create([
+//           'body' => 'body 1'
+//        ]);
+//        $client->reviews()->create([
+//           'body' => 'body 1'
+//        ]);
+//        $client->reviews()->create([
+//           'body' => 'body 1'
+//        ]);
+//
+//        $review = Review::find(1);
+//
+//        dd($review->reviewable->toArray());
+
         return 0;
     }
 
     private function prepareData()
     {
+        Client::create([
+           'name' => 'Bob'
+        ]);
+
+        Client::create([
+            'name' => 'Will'
+        ]);
+
+        Client::create([
+            'name' => 'John'
+        ]);
+
         $department = Department::create([
             'title' => 'IT'
         ]);
