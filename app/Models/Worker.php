@@ -19,6 +19,14 @@ class Worker extends Model
         static::created(function ($worker){
             event(new CreatedWorkerEvent($worker));
         });
+
+        static::updated(function ($worker){
+            if ($worker->wasChanged() && $worker->getOriginal() != $worker->getAttributes){
+
+                dd(111);
+
+            }
+        });
     }
 
     public function profile()

@@ -38,6 +38,12 @@ class DevCommand extends Command
 //        $this->prepareManyToMany();
 
 
+            $worker = Worker::find(1);
+
+            $worker->update([
+               'name' => 'milf'
+            ]);
+
 
 //        $profile = Profile::find(1);
 //        dd($worker->profile->toArray());
@@ -89,9 +95,7 @@ class DevCommand extends Command
 //        $worker = Worker::find(1);
 //        $client = Client::find(1);
 
-        $position = Position::first();
 
-        dd($position->surnameWorker->toArray());
 
 //        $worker->tags()->attach([1,3]);
 //        $client->tags()->attach([2,3]);
@@ -273,12 +277,12 @@ class DevCommand extends Command
         ];
 
 
-        $worker->profile()->create($profileData);
-        $worker2->profile()->create($profileData2);
-        $worker3->profile()->create($profileData3);
-        $worker4->profile()->create($profileData4);
-        $worker5->profile()->create($profileData5);
-        $worker6->profile()->create($profileData6);
+//        $worker->profile()->create($profileData);
+//        $worker2->profile()->create($profileData2);
+//        $worker3->profile()->create($profileData3);
+//        $worker4->profile()->create($profileData4);
+//        $worker5->profile()->create($profileData5);
+//        $worker6->profile()->create($profileData6);
 
 //        Profile::create($profileData);
 //        Profile::create($profileData2);
