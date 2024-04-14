@@ -86,15 +86,19 @@ class DevCommand extends Command
 //           'path'=>'some avatar',
 //        ]);
 
-        $worker = Worker::find(1);
-        $client = Client::find(1);
+//        $worker = Worker::find(1);
+//        $client = Client::find(1);
+
+        $position = Position::first();
+
+        dd($position->surnameWorker->toArray());
 
 //        $worker->tags()->attach([1,3]);
 //        $client->tags()->attach([2,3]);
 
-        $tag = Tag::find(3);
-
-        dd($worker->tags->toArray());
+//        $tag = Tag::find(3);
+//
+//        dd($worker->tags->toArray());
 
 //        $worker->reviews()->create([
 //           'body' => 'body 1'
