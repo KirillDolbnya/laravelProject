@@ -37,12 +37,26 @@ class DevCommand extends Command
 //        $this->prepareData();
 //        $this->prepareManyToMany();
 
+        $worker = Worker::find(6);
 
-            $worker = Worker::find(1);
+        $worker->forceDelete();
 
-            $worker->update([
-               'name' => 'milf'
-            ]);
+
+
+//        $worker = Worker::withTrashed()->find(1); //получение всех пользователей включая удаленных
+//        $worker->restore(); // восстановление удаленного пользователя
+
+
+
+//            dd($worker->toArray());
+
+//        $workers = Worker::onlyTrashed()->get(); // получение только удаленных пользователей
+
+//        dd($workers->toArray());
+//
+//            $worker->delete();
+
+
 
 
 //        $profile = Profile::find(1);
@@ -277,12 +291,12 @@ class DevCommand extends Command
         ];
 
 
-//        $worker->profile()->create($profileData);
-//        $worker2->profile()->create($profileData2);
-//        $worker3->profile()->create($profileData3);
-//        $worker4->profile()->create($profileData4);
-//        $worker5->profile()->create($profileData5);
-//        $worker6->profile()->create($profileData6);
+        $worker->profile()->create($profileData);
+        $worker2->profile()->create($profileData2);
+        $worker3->profile()->create($profileData3);
+        $worker4->profile()->create($profileData4);
+        $worker5->profile()->create($profileData5);
+        $worker6->profile()->create($profileData6);
 
 //        Profile::create($profileData);
 //        Profile::create($profileData2);

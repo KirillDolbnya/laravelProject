@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Events\CreatedWorkerEvent;
+use App\Events\DeleteWorkerEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Worker extends Model
 {
+    use SoftDeletes;
     use HasFactory;
 
     protected $table = 'workers';
@@ -27,6 +30,10 @@ class Worker extends Model
 
             }
         });
+
+//        static::deleted(function ($worker){
+//            event(new DeleteWorkerEvent($worker));
+//        });
     }
 
     public function profile()
