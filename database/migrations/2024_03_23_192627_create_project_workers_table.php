@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('project_worker', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->index()->constrained('projects');
-            $table->foreignId('worker_id')->index()->constrained('workers');
+            $table->foreignId('worker_id')->index()->constrained('workers')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,6 +24,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_workers');
+        Schema::table('project_worker', function (Blueprint $table) {
+            $table->dropForeign(['project_id']);
+        });
+        Schema::dropIfExists('project_worker');
     }
 };
